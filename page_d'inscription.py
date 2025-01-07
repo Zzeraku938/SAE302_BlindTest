@@ -37,7 +37,7 @@ class RegisterWindow(ctk.CTk):
 
         self.login_link = ctk.CTkButton(self, text="Déjà inscrit ? Se connecter", command=self.open_login)
         self.login_link.pack(pady=10)
-        
+
    def register(self):
         firstname = self.firstname_entry.get()
         lastname = self.lastname_entry.get()
@@ -46,13 +46,18 @@ class RegisterWindow(ctk.CTk):
         password = self.password_entry.get()
         confirm_password = self.confirm_password_entry.get()
 
-        # Ici, vous pouvez ajouter la logique de vérification et d'enregistrement
+        # logique de vérification et d'enregistrement
         if password != confirm_password:
             print("Les mots de passe ne correspondent pas")
         else:
             print(f"Tentative d'inscription pour : {username}")
-            # Ajoutez ici le code pour enregistrer l'utilisateur dans votre base de données
+            
 
+    def open_login(self):
+        
+        print("Ouverture de la page de connexion")
+        self.destroy()  # Ferme la fenêtre d'inscription
+        
 if __name__ == "__main__":
     app = RegisterWindow()
     app.mainloop()
