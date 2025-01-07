@@ -31,7 +31,12 @@ class RegisterWindow(ctk.CTk):
 
         self.confirm_password_entry = ctk.CTkEntry(self, placeholder_text="Confirmer Mot de passe", show="*")
         self.confirm_password_entry.pack(pady=15)
+        
+        self.register_button = ctk.CTkButton(self, text="S'inscrire", command=self.register)
+        self.register_button.pack(pady=20)
 
+        self.login_link = ctk.CTkButton(self, text="Déjà inscrit ? Se connecter", command=self.open_login)
+        self.login_link.pack(pady=10)
 if __name__ == "__main__":
     app = RegisterWindow()
     app.mainloop()
