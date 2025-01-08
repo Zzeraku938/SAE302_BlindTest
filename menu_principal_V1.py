@@ -10,7 +10,7 @@ class BlindtestInterface:
 
         pygame.mixer.init()
 
-       self.genres = {
+        self.genres = {
             "RAP FR": [
                 {"title": "Chanson RAP FR 1", "file": "chemin/vers/rap_fr_1.mp3"},
                 {"title": "Chanson RAP FR 2", "file": "chemin/vers/rap_fr_2.mp3"},
@@ -33,11 +33,9 @@ class BlindtestInterface:
             ]
         }
 
-
         self.selected_genre = None
         self.current_song = None
         self.score = 0
-
 
         self.genre_label = tk.Label(self.master, text="Choisissez un genre musical :", font=("Arial", 18))
         self.genre_label.pack(pady=20)
@@ -58,11 +56,16 @@ class BlindtestInterface:
 
         self.score_label = tk.Label(self.master, text="Score : 0", font=("Arial", 16))
         self.score_label.pack(pady=20)
-    
+
     def select_genre(self):
         genre_name = self.genre_var.get()
         self.current_song = random.choice(self.genres[genre_name])
         print(f"Genre sélectionné : {genre_name}. Chanson actuelle : {self.current_song['title']}")
+
+    def play_music(self):
+        if self.current_song:
+            pygame.mixer.music.load(self.current_song["file"])
+            pygame.mixer.music.play()
 
     def check_answer(self):
         user_answer = self.answer_entry.get().lower()
@@ -74,7 +77,7 @@ class BlindtestInterface:
             self.select_genre()
         else:
             tk.messagebox.showinfo("Incorrect", "Essayez encore !")
-    
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = BlindtestInterface(root)
