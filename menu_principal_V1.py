@@ -63,3 +63,19 @@ class BlindtestInterface:
         genre_name = self.genre_var.get()
         self.current_song = random.choice(self.genres[genre_name])
         print(f"Genre sélectionné : {genre_name}. Chanson actuelle : {self.current_song['title']}")
+
+    def check_answer(self):
+        user_answer = self.answer_entry.get().lower()
+        if self.current_song and user_answer == self.current_song["title"].lower():
+            self.score += 1
+            self.score_label.config(text=f"Score : {self.score}")
+            self.answer_entry.delete(0, tk.END)
+            # Sélectionner une nouvelle chanson après une bonne réponse
+            self.select_genre()
+        else:
+            tk.messagebox.showinfo("Incorrect", "Essayez encore !")
+    
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = BlindtestInterface(root)
+    root.mainloop()
