@@ -478,3 +478,63 @@ def load_songs_fr(self):
                     fg="white",
                     bg="#1A1A1A"
                 ).grid(row=row_idx, column=col_idx, padx=10, pady=5)
+
+    def select_genre(self, genre):
+        self.selected_genre = genre
+        self.show_difficulty_selection()
+
+    def show_difficulty_selection(self):
+        self.clear_window()
+
+        self.master.configure(bg="#1A1A1A")
+
+        self.back_button = tk.Button(
+            self.master,
+            text="← Retour",
+            command=self.show_genre_selection,
+            font=("Arial", 10, "bold"),
+            bg="#333333",
+            fg="white",
+            relief="flat",
+            cursor="hand2"
+        )
+        self.back_button.place(x=20, y=20)
+
+        title_label = tk.Label(
+            self.master,
+            text="Choisissez une difficulté :",
+            font=("Arial", 24, "bold"),
+            fg="#FFD700",
+            bg="#1A1A1A"
+        )
+        title_label.pack(pady=(150, 20))
+
+        self.buttons_frame = tk.Frame(self.master, bg="#1A1A1A")
+        self.buttons_frame.pack(expand=True)
+
+        for difficulty in ["Novice", "Intermédiaire", "Extrême"]:
+            btn = tk.Button(
+                self.buttons_frame,
+                text=difficulty,
+                command=lambda d=difficulty: self.select_difficulty(d),
+                width=20,
+                height=2,
+                font=("Arial", 12, "bold"),
+                bg="#4B0082",
+                fg="white",
+                relief="raised",
+                cursor="hand2"
+            )
+            btn.pack(pady=10)
+
+    def select_difficulty(self, difficulty):
+        self.selected_difficulty = difficulty
+        self.prepare_game()
+        self.show_game_interface()
+
+    def prepare_game(self):
+        all_songs = [song for song in self.genres[self.selected_genre] if song["difficulty"] == self.selected_difficulty]
+        num_songs = self.difficulties[self.selected_difficulty]["count"]
+        self.current_playlist = random.sample(all_songs, min(num_songs, len(all_songs)))
+        self.current_song_index = 0
+        self.score = 0
