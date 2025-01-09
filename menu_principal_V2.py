@@ -174,7 +174,6 @@ class RegisterWindow(ctk.CTkFrame):
     def quit_game(self, game_window):
         game_window.destroy()
         self.master.destroy()
-       
 
 class BlindtestGame:
     def __init__(self, master):
@@ -539,7 +538,6 @@ def load_songs_fr(self):
         self.current_song_index = 0
         self.score = 0
 
-
     def show_game_interface(self):
         self.clear_window()
 
@@ -652,7 +650,7 @@ def load_songs_fr(self):
             # Réinitialiser l'état de lecture pour permettre de passer à l'extrait suivant
             self.is_playing = False
             
-               def get_color(self, proportion):
+    def get_color(self, proportion):
         if proportion < 0.5:
             return "#00FF00"  # Vert
         elif proportion < 0.8:
