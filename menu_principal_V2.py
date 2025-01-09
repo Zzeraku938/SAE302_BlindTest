@@ -175,3 +175,81 @@ class RegisterWindow(ctk.CTkFrame):
         game_window.destroy()
         self.master.destroy()
        
+
+class BlindtestGame:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Blindtest Musical")
+        self.master.geometry("800x600")
+        self.master.configure(bg="#1A1A1A")
+        
+        # Ajouter cette ligne pour récupérer le nom d'utilisateur
+        self.player_name = master.username if hasattr(master, 'username') else "Joueur"
+
+         # Initialize database connection
+        self.conn = sqlite3.connect('blindtest_scores.db')
+        self.cursor = self.conn.cursor()
+        
+        # Create tables if they don't exist
+        self.cursor.execute('''
+        CREATE TABLE IF NOT EXISTS leaderboard (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            player_name TEXT NOT NULL,
+            genre TEXT NOT NULL,
+            difficulty TEXT NOT NULL,
+            score INTEGER NOT NULL,
+            total_songs INTEGER NOT NULL,
+            date DATETIME NOT NULL
+        )''')
+        self.conn.commit()
+
+        # Initialisation directe de la base de données dans __init__
+        self.conn = sqlite3.connect('blindtest_users.db')
+        self.cursor = self.conn.cursor()
+
+        # Création de la table si elle n'existe pas
+        self.cursor.execute('''
+        CREATE TABLE IF NOT EXISTS leaderboard (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            player_name TEXT NOT NULL,
+            genre TEXT NOT NULL, 
+            difficulty TEXT NOT NULL,
+            score INTEGER NOT NULL,
+            total_songs INTEGER NOT NULL,
+            date DATETIME NOT NULL
+        )''')
+        self.conn.commit()
+       
+        # Initialize pygame mixer
+        pygame.mixer.init()
+
+        # Chansons avec plusieurs réponses possibles
+        self.genres = {
+            "RAP FR": self.load_songs_fr(),
+            "RAP US": []  # Ajoute ici des chansons pour RAP US si nécessaire
+        }
+
+        self.difficulties = {
+            "Novice": {"count": 20, "duration": 30},
+            "Intermédiaire": {"count": 10, "duration": 20},
+            "Extrême": {"count": 5, "duration": 10}
+        }
+
+        self.selected_genre = None
+        self.selected_difficulty = None
+        self.current_playlist = []
+        self.current_song_index = 0
+        self.score = 0
+        self.timer = None
+        self.is_playing = False
+        self.remaining_time = 0
+        
+        # Afficher directement le menu de sélection des genres
+        self.show_genre_selection()
+
+    def start_game(self):
+        self.player_name = self.name_entry.get().strip()
+        if not self.player_name:
+            messagebox.showerror("Erreur", "Veuillez entrer un nom")
+            return
+        self.show_genre_selection()
