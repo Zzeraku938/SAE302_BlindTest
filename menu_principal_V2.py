@@ -652,3 +652,108 @@ def load_songs_fr(self):
             # Réinitialiser l'état de lecture pour permettre de passer à l'extrait suivant
             self.is_playing = False
             
+               def get_color(self, proportion):
+        if proportion < 0.5:
+            return "#00FF00"  # Vert
+        elif proportion < 0.8:
+            return "#FFA500"  # Orange
+        else:
+            return "#FF0000"  # Rouge
+
+    def check_answer(self):
+        self.stop_music()
+        # Arrêter et réinitialiser la barre de progression
+        self.remaining_time = 0
+        self.timer_canvas.coords(self.timer_bar, 0, 0, 0, 30)
+        self.timer_canvas.itemconfig(self.timer_bar, fill="#00FF00")
+        self.is_playing = False
+        
+        user_answer = self.answer_entry.get().strip().lower()
+        correct_answers = [ans.lower() for ans in self.current_playlist[self.current_song_index]["answers"]]
+
+        if any(user_answer == answer for answer in correct_answers):
+            # Attribution des points selon la difficulté
+            if self.selected_difficulty == "Novice":
+                self.score += 1
+            elif self.selected_difficulty == "Intermédiaire":
+                self.score += 3
+            elif self.selected_difficulty == "Extrême":
+                self.score += 5
+            messagebox.showinfo("Correct!", "Bonne réponse!")
+        else:
+            correct_answer_display = ", ".join(self.current_playlist[self.current_song_index]["answers"])
+            messagebox.showinfo("Incorrect", f"La bonne réponse était : {correct_answer_display}")
+
+        self.current_song_index += 1
+        if self.current_song_index < len(self.current_playlist):
+            self.song_progress_label.config(text=f"Extrait {self.current_song_index + 1}/{len(self.current_playlist)}")
+            self.answer_entry.delete(0, tk.END)
+        else:
+            self.show_final_score()
+
+
+
+    def show_final_score(self):
+        self.clear_window()
+        self.save_score()
+        
+        final_frame = tk.Frame(self.master, bg="#1A1A1A")
+        final_frame.place(relx=0.5, rely=0.5, anchor="center")
+        
+        tk.Label(
+            final_frame,
+            text=f"Score final : {self.score}",
+            font=("Arial", 24, "bold"),
+            fg="#FFD700",
+            bg="#1A1A1A"
+        ).pack(pady=20)
+        
+        tk.Label(
+            final_frame,
+            text=f"Merci d'avoir joué, {self.player_name}!",
+            font=("Arial", 18),
+            fg="white",
+            bg="#1A1A1A"
+        ).pack(pady=10)
+        
+        tk.Button(
+            final_frame,
+            text="Rejouer",
+            command=self.show_genre_selection,
+            font=("Arial", 14, "bold"),
+            bg="#4B0082",
+            fg="white"
+        ).pack(pady=10)
+        
+        tk.Button(
+            final_frame,
+            text="Voir le Leaderboard",
+            command=self.show_leaderboard,
+            font=("Arial", 14, "bold"),
+            bg="#4B0082",
+            fg="white"
+        ).pack(pady=10)
+
+
+    def save_score(self):
+        self.cursor.execute('''
+        INSERT INTO leaderboard (player_name, genre, difficulty, score, total_songs, date)
+        VALUES (?, ?, ?, ?, ?, ?)
+        ''', (
+            self.player_name,
+            self.selected_genre,
+            self.selected_difficulty,
+            self.score,
+            len(self.current_playlist),
+            datetime.now()
+        ))
+        self.conn.commit()
+
+    def clear_window(self):
+        for widget in self.master.winfo_children():
+            widget.destroy()
+
+# Code pour lancer l'application
+if __name__ == "__main__":
+    app = MainApplication()
+    app.mainloop()
