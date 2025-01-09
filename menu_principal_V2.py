@@ -538,3 +538,117 @@ def load_songs_fr(self):
         self.current_playlist = random.sample(all_songs, min(num_songs, len(all_songs)))
         self.current_song_index = 0
         self.score = 0
+
+
+    def show_game_interface(self):
+        self.clear_window()
+
+        self.master.configure(bg="#1A1A1A")
+
+        container = tk.Frame(self.master, bg="#1A1A1A")
+        container.pack(expand=True, fill="both")
+
+        self.song_progress_label = tk.Label(
+            container,
+            text=f"Extrait {self.current_song_index + 1}/{len(self.current_playlist)}",
+            font=("Arial", 14),
+            fg="white",
+            bg="#1A1A1A"
+        )
+        self.song_progress_label.pack(pady=10)
+
+        self.play_button = tk.Button(
+            container,
+            text="Jouer l'extrait",
+            command=self.play_music,
+            font=("Arial", 12, "bold"),
+            bg="#4B0082",
+            fg="white",
+            width=20,
+            height=2,
+            cursor="hand2"
+        )
+        self.play_button.pack(pady=20)
+
+        self.answer_entry = tk.Entry(
+            container,
+            width=50,
+            font=("Arial", 12),
+            bg="#333333",
+            fg="white",
+            insertbackground="white"
+        )
+        self.answer_entry.pack(pady=20)
+
+        self.submit_button = tk.Button(
+            container,
+            text="Valider",
+            command=self.check_answer,
+            font=("Arial", 12, "bold"),
+            bg="#4B0082",
+            fg="white",
+            width=15,
+            cursor="hand2"
+        )
+        self.submit_button.pack(pady=10)
+
+        self.timer_canvas = tk.Canvas(container, width=400, height=30, bg="#333333", highlightthickness=0)
+        self.timer_canvas.pack(pady=10)
+
+        self.timer_bar = self.timer_canvas.create_rectangle(0, 0, 0, 30, fill="green", width=0)
+
+        self.score_label = tk.Label(
+            container,
+            text=f"Score : {self.score}",
+            font=("Arial", 16, "bold"),
+            fg="#FFD700",
+            bg="#1A1A1A"
+        )
+        self.score_label.pack(pady=20)
+
+    def play_music(self):
+        if not self.is_playing and self.current_song_index < len(self.current_playlist):
+            self.is_playing = True
+            # Désactiver le bouton Valider pendant la lecture
+            self.submit_button.configure(state='disabled')
+            pygame.mixer.music.load(self.current_playlist[self.current_song_index]["file"])
+            pygame.mixer.music.play()
+            duration = self.difficulties[self.selected_difficulty]["duration"]
+            self.start_timer(duration)
+
+
+    def stop_music(self):
+        pygame.mixer.music.stop()
+
+    def start_timer(self, duration):
+        self.remaining_time = duration
+        self.update_timer_bar(duration)
+
+    def update_timer_bar(self, duration):
+        if self.remaining_time > 0:
+            proportion = (duration - self.remaining_time) / duration
+            color = self.get_color(proportion)
+            width = 400 * proportion
+            self.timer_canvas.coords(self.timer_bar, 0, 0, width, 30)
+            self.timer_canvas.itemconfig(self.timer_bar, fill=color)
+            
+            self.remaining_time -= 1
+            self.master.after(1000, lambda: self.update_timer_bar(duration))
+        else:
+            self.stop_music()
+            self.timer_canvas.coords(self.timer_bar, 0, 0, 400, 30)
+            self.timer_canvas.itemconfig(self.timer_bar, fill="#FF0000")
+            
+            # Appeler automatiquement la méthode check_answer
+            self.check_answer()
+
+            # Désactiver le bouton valider pendant les 2 dernières secondes
+            if self.remaining_time <= 2:
+                self.submit_button.configure(state='disabled')
+
+            # Réactiver le bouton Valider
+            self.submit_button.configure(state='normal')
+
+            # Réinitialiser l'état de lecture pour permettre de passer à l'extrait suivant
+            self.is_playing = False
+            
