@@ -253,7 +253,7 @@ class BlindtestGame:
             messagebox.showerror("Erreur", "Veuillez entrer un nom")
             return
         self.show_genre_selection()
-        
+
 def load_songs_fr(self):
     # Données des chansons avec chemins et réponses possibles
     return [
@@ -378,3 +378,103 @@ def load_songs_fr(self):
             "answers": ["werenoi dans un verre", "dans un verre", "werenoi","sdm"]
         }
     ]
+
+
+    def show_genre_selection(self):
+        self.clear_window()
+
+        main_frame = tk.Frame(self.master, bg="#1A1A1A")
+        main_frame.place(relx=0.5, rely=0.5, anchor="center")
+
+        title_label = tk.Label(
+            main_frame,
+            text="Choisissez un genre de Rap :",
+            font=("Arial", 24, "bold"),
+            fg="#FFD700",
+            bg="#1A1A1A"
+        )
+        title_label.pack(pady=30)
+
+        for genre in self.genres.keys():
+            btn = tk.Button(
+                main_frame,
+                text=genre,
+                command=lambda g=genre: self.select_genre(g),
+                width=20,
+                height=2,
+                font=("Arial", 12, "bold"),
+                bg="#4B0082",
+                fg="white",
+                relief="raised",
+                cursor="hand2"
+            )
+            btn.pack(pady=10)
+        
+        leaderboard_button = tk.Button(
+            main_frame,
+            text="Leaderboard",
+            command=self.show_leaderboard,
+            width=20,
+            height=2,
+            font=("Arial", 12, "bold"),
+            bg="#4B0082",
+            fg="white",
+            relief="raised",
+            cursor="hand2"
+        )
+        leaderboard_button.pack(pady=10)
+
+    def show_leaderboard(self):
+        self.clear_window()
+    
+        self.master.configure(bg="#1A1A1A")
+    
+        back_button = tk.Button(
+            self.master,
+            text="← Retour",
+            command=self.show_genre_selection,
+            font=("Arial", 10, "bold"),
+            bg="#333333",
+            fg="white",
+            relief="flat",
+            cursor="hand2"
+        )
+        back_button.place(x=20, y=20)
+    
+        tk.Label(
+            self.master,
+            text="Meilleurs Scores",
+            font=("Arial", 24, "bold"),
+            fg="#FFD700",
+            bg="#1A1A1A"
+        ).pack(pady=20)
+    
+        scores_frame = tk.Frame(self.master, bg="#1A1A1A")
+        scores_frame.pack(expand=True, fill="both", padx=20)
+    
+        headers = ["Joueur", "Genre", "Difficulté", "Score", "Date"]
+        for i, header in enumerate(headers):
+            tk.Label(
+                scores_frame,
+                text=header,
+                font=("Arial", 12, "bold"),
+                fg="#FFD700",
+                bg="#1A1A1A"
+            ).grid(row=0, column=i, padx=10, pady=5)
+    
+        self.cursor.execute('''
+        SELECT player_name, genre, difficulty, score, date
+        FROM leaderboard
+        ORDER BY score DESC, difficulty DESC
+        LIMIT 10
+        ''')
+    
+        for row_idx, score in enumerate(self.cursor.fetchall(), 1):
+            for col_idx, value in enumerate(score):
+                tk.Label(
+                    scores_frame,
+                    text=str(value),
+                    font=("Arial", 10),
+                    fg="white",
+                    bg="#1A1A1A"
+                ).grid(row=row_idx, column=col_idx, padx=10, pady=5)
