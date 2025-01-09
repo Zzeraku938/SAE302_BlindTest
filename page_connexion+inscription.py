@@ -31,3 +31,11 @@ def inscrire_utilisateur(nom, prenom, nom_utilisateur, email, mot_de_passe):
         return True
     except sqlite3.IntegrityError:
         return False
+
+def connecter_utilisateur(nom_utilisateur, mot_de_passe):
+    hashed_password = hash_password(mot_de_passe)
+    cursor.execute('''
+    SELECT * FROM utilisateurs WHERE nom_utilisateur = ? AND mot_de passe = ?
+    ''', (nom_utilisateur, hashed_password))
+    utilisateur = cursor.fetchone()
+    return utilisateur is not None
