@@ -25,3 +25,17 @@ class LoginWindow(ctk.CTk):
 
         self.register_button = ctk.CTkButton(self, text="S'inscrire", command=self.register)
         self.register_button.pack(pady=10)
+
+    def login(self):
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+        # Ici, vous pouvez ajouter la logique de vérification des identifiants
+        print(f"Tentative de connexion : {username}")
+
+    def register(self):
+        # Ici, vous pouvez ajouter la logique pour l'inscription
+        print("Ouverture de la page d'inscription")
+
+if __name__ == "__main__":
+    app = LoginWindow()
+    app.mainloop()
