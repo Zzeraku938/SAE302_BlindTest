@@ -182,14 +182,14 @@ class BlindtestGame:
         self.master.geometry("800x600")
         self.master.configure(bg="#1A1A1A")
         
-        # Récupérer le nom d'utilisateur
+        # Ajouter cette ligne pour récupérer le nom d'utilisateur
         self.player_name = master.username if hasattr(master, 'username') else "Joueur"
 
-         # Connection DB
+         # Initialize database connection
         self.conn = sqlite3.connect('blindtest_scores.db')
         self.cursor = self.conn.cursor()
         
-        # Création de tables
+        # Create tables if they don't exist
         self.cursor.execute('''
         CREATE TABLE IF NOT EXISTS leaderboard (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -219,13 +219,13 @@ class BlindtestGame:
         )''')
         self.conn.commit()
        
-        # Initialisation pygame mixer
+        # Initialize pygame mixer
         pygame.mixer.init()
 
         # Chansons avec plusieurs réponses possibles
         self.genres = {
             "RAP FR": self.load_songs_fr(),
-            "RAP US": []  # Ajoute ici des chansons pour RAP US si nécessaire
+            "RAP US": self.load_songs_us(),
         }
 
         self.difficulties = {
@@ -467,6 +467,215 @@ class BlindtestGame:
                 "answers": ["sch champs élysées", "champs élysées", "sch"]
             },
         ]
+    def load_songs_us(self): 
+        return [
+            {
+                "title": "2Pac - All Eyez On Me",
+                "file": "./RAP_US/Novice/2Pac - All Eyez On Me.mp3",
+                "difficulty": "Novice",
+                "answers": ["2pac all eyez on me", "all eyez on me", "2pac", "tupac"]
+            },
+            {
+                "title": "2Pac - Hit Em Up",
+                "file": "./RAP_US/Novice/2Pac - Hit Em Up.mp3",
+                "difficulty": "Novice",
+                "answers": ["2pac hit em up", "hit em up", "2pac", "tupac"]
+            },
+            {
+                "title": "Akon - Smack That",
+                "file": "./RAP_US/Novice/Akon - Smack That.mp3",
+                "difficulty": "Novice",
+                "answers": ["akon smack that", "smack that", "akon"]
+            },
+            {
+                "title": "DaBaby - BOP",
+                "file": "./RAP_US/Novice/DaBaby - BOP.mp3",
+                "difficulty": "Novice",
+                "answers": ["dababy bop", "bop", "dababy"]
+            },
+            {
+                "title": "Dr Dre ft. Snoop dogg - Nuthin But A G Thang",
+                "file": "./RAP_US/Novice/Dr Dre ft. Snoop dogg - Nuthin But A G Thang.mp3",
+                "difficulty": "Novice",
+                "answers": ["dr dre nuthin but a g thang", "nuthin but a g thang", "dr dre", "snoop dogg", "snoop"]
+            },
+            {
+                "title": "Dr Dre ft. Snoop dogg - The Next Episode",
+                "file": "./RAP_US/Novice/Dr Dre ft. Snoop dogg - The Next Episode.mp3",
+                "difficulty": "Novice",
+                "answers": ["dr dre the next episode", "the next episode", "dr dre", "snoop dogg", "snoop"]
+            },
+            {
+                "title": "Eminem - The Real Slim Shady",
+                "file": "./RAP_US/Novice/Eminem - The Real Slim Shady.mp3",
+                "difficulty": "Novice",
+                "answers": ["eminem the real slim shady", "the real slim shady", "eminem", "slim shady"]
+            },
+            {
+                "title": "Jay-Z & Kanye West - Niggas in Paris",
+                "file": "./RAP_US/Novice/Jay-Z & Kanye West - Niggas in Paris.mp3",
+                "difficulty": "Novice",
+                "answers": ["jay z niggas in paris", "niggas in paris", "jay z", "kanye west"]
+            },
+            {
+                "title": "Kanye West ft. Big Sean & Jay-Z - Clique",
+                "file": "./RAP_US/Novice/Kanye West ft. Big Sean & Jay-Z - Clique.mp3",
+                "difficulty": "Novice",
+                "answers": ["kanye west clique", "clique", "kanye west", "big sean", "jay z"]
+            },
+            {
+                "title": "Kendrick Lamar - HUMBLE",
+                "file": "./RAP_US/Novice/Kendrick Lamar - HUMBLE.mp3",
+                "difficulty": "Novice",
+                "answers": ["kendrick lamar humble", "humble", "kendrick lamar"]
+            },
+            {
+                "title": "Kendrick Lamar - ELEMENT",
+                "file": "./RAP_US/Novice/Kendrick Lamar - ELEMENT.mp3",
+                "difficulty": "Novice",
+                "answers": ["kendrick lamar element", "element", "kendrick lamar"]
+            },
+            {
+                "title": "Migos ft Lil Uzi Vert - Bad and Boujee",
+                "file": "./RAP_US/Novice/Migos ft Lil Uzi Vert - Bad and Boujee.mp3",
+                "difficulty": "Novice",
+                "answers": ["migos bad and boujee", "bad and boujee", "migos", "lil uzi vert"]
+            },
+            {
+                "title": "Migos ft. Drake - Walk It Talk It",
+                "file": "./RAP_US/Novice/Migos ft. Drake - Walk It Talk It.mp3",
+                "difficulty": "Novice",
+                "answers": ["migos walk it talk it", "walk it talk it", "migos", "drake"]
+            },
+            {
+                "title": "Pop Smoke - Dior",
+                "file": "./RAP_US/Novice/Pop Smoke - Dior.mp3",
+                "difficulty": "Novice",
+                "answers": ["pop smoke dior", "dior", "pop smoke"]
+            },
+            {
+                "title": "The Notorious B.I.G - Big Poppa",
+                "file": "./RAP_US/Novice/The Notorious B.I.G - Big Poppa.mp3",
+                "difficulty": "Novice",
+                "answers": ["notorious big big poppa", "big poppa", "notorious big", "biggie", "the notorious big"]
+            },
+            {
+                "title": "Travis Scott - Antidote",
+                "file": "./RAP_US/Novice/Travis Scott - Antidote.mp3",
+                "difficulty": "Novice",
+                "answers": ["travis scott antidote", "antidote", "travis scott", "travis"]
+            },
+            {
+                "title": "Travis Scott - FEIN",
+                "file": "./RAP_US/Novice/Travis Scott - FEIN.mp3",
+                "difficulty": "Novice",
+                "answers": ["travis scott fein", "fein", "travis scott", "travis"]
+            },
+            {
+                "title": "Travis Scott - HIGHEST IN THE ROOM",
+                "file": "./RAP_US/Novice/Travis Scott - HIGHEST IN THE ROOM.mp3",
+                "difficulty": "Novice",
+                "answers": ["travis scott highest in the room", "highest in the room", "travis scott", "travis"]
+            },
+            {
+                "title": "Travis Scott - SICKO MODE",
+                "file": "./RAP_US/Novice/Travis Scott - SICKO MODE.mp3",
+                "difficulty": "Novice",
+                "answers": ["travis scott sicko mode", "sicko mode", "travis scott", "travis"]
+            },
+            {
+                "title": "Travis scott ft. Kendrick Lamar - Goosebumps",
+                "file": "./RAP_US/Novice/Travis scott ft. Kendrick Lamar - Goosebumps.mp3",
+                "difficulty": "Novice",
+                "answers": ["travis scott goosebumps", "goosebumps", "travis scott", "kendrick lamar", "travis"]
+            },
+            {
+                "title": "2Pac - California Love",
+                "file": "./RAP_US/Intermediaire/2Pac - California Love.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["2pac california love", "california love", "2pac", "tupac"]
+            },
+            {
+                "title": "50 cent - In Da Club",
+                "file": "./RAP_US/Intermediaire/50 cent - In Da Club.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["50 cent in da club", "in da club", "50 cent"]
+            },
+            {
+                "title": "Dr Dre ft. Snoop dogg - Still D.R.E",
+                "file": "./RAP_US/Intermediaire/Dr Dre ft. Snoop dogg - Still D.R.E.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["dr dre still dre", "still dre", "dr dre", "snoop dogg", "snoop"]
+            },
+            {
+                "title": "Dr Dre ft. Snoop Dogg & Devin the Dude - Fuck You",
+                "file": "./RAP_US/Intermediaire/Dr Dre ft. Snoop Dogg & Devin the Dude - Fuck You.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["dr dre fuck you", "fuck you", "dr dre", "snoop dogg", "snoop"]
+            },
+            {
+                "title": "Eminem - Without Me",
+                "file": "./RAP_US/Intermediaire/Eminem - Without Me.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["eminem without me", "without me", "eminem", "slim shady"]
+            },
+            {
+                "title": "Kanye West - POWER",
+                "file": "./RAP_US/Intermediaire/Kanye West - POWER.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["kanye west power", "power", "kanye west", "ye"]
+            },
+            {
+                "title": "Lil wayne - A Milli",
+                "file": "./RAP_US/Intermediaire/Lil wayne - A Milli.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["lil wayne a milli", "a milli", "lil wayne", "weezy"]
+            },
+            {
+                "title": "Pop Smoke ft. 50 Cent & Roddy Ricch - The Woo",
+                "file": "./RAP_US/Intermediaire/Pop Smoke ft. 50 Cent & Roddy Ricch - The Woo.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["pop smoke the woo", "the woo", "pop smoke", "50 cent", "roddy ricch"]
+            },
+            {
+                "title": "Soulja Boy - Crank That",
+                "file": "./RAP_US/Intermediaire/Soulja Boy - Crank That.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["soulja boy crank that", "crank that", "soulja boy"]
+            },
+            {
+                "title": "Coolio - Gangstas Paradise",
+                "file": "./RAP_US/Extreme/Coolio - Gangstas Paradise.mp3",
+                "difficulty": "Extrême",
+                "answers": ["coolio gangstas paradise", "gangstas paradise", "coolio"]
+            },
+            {
+                "title": "Rick Ross - Hustlin",
+                "file": "./RAP_US/Extreme/Rick Ross - Hustlin.mp3",
+                "difficulty": "Extrême",
+                "answers": ["rick ross hustlin", "hustlin", "rick ross"]
+            },
+            {
+                "title": "Sage the gemini ft. IamSu - Gas Pedal",
+                "file": "./RAP_US/Extreme/Sage the gemini ft. IamSu - Gas Pedal.mp3",
+                "difficulty": "Extrême",
+                "answers": ["sage the gemini gas pedal", "gas pedal", "sage the gemini"]
+            },
+            {
+                "title": "The Notorious B.I.G. - Hypnotize",
+                "file": "./RAP_US/Extreme/The Notorious B.I.G. - Hypnotize.mp3",
+                "difficulty": "Extrême",
+                "answers": ["notorious big hypnotize", "hypnotize", "notorious big", "biggie"]
+            },
+            {
+                "title": "Valee ft. Jeremih - Womp Womp",
+                "file": "./RAP_US/Extreme/Valee ft. Jeremih - Womp Womp.mp3",
+                "difficulty": "Extrême",
+                "answers": ["valee womp womp", "womp womp", "valee", "jeremih"]
+            }
+        ]
+
+ 
 
 
     def show_genre_selection(self):
