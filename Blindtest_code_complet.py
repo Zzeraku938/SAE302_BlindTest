@@ -253,130 +253,130 @@ class BlindtestGame:
             return
         self.show_genre_selection()
     
-def load_songs_fr(self):
-    # Données des chansons avec chemins et réponses possibles
-    return [
-        {
-            "title": "Booba - Dolce Camara",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Booba%20-%20Dolce%20Camara.mp3",
-            "difficulty": "Novice",
-            "answers": ["booba dolce camara", "dolce camara", "booba","b2o"]
-        },
-        {
-            "title": "Booba - Freestyle CKO",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Booba%20-%20Freestyle%20CKO.mp3",
-            "difficulty": "Novice",
-            "answers": ["booba freestyle cko", "freestyle cko", "booba","b2o"]
-        },
-        {
-            "title": "Booba ft. Kaaris - Kalash",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Booba%20ft.%20Kaaris%20-%20Kalash.mp3",
-            "difficulty": "Novice",
-            "answers": ["booba kalash", "kalash", "booba","kaaris","k2a","b2o"]
-        },
-        {
-            "title": "Gazo - Probation",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Gazo%20-%20Probation.mp3",
-            "difficulty": "Novice",
-            "answers": ["gazo probation", "probation", "gazo","bsb"]
-        },
-        {
-            "title": "Gazo & Tiakola - Cartier",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Gazo%20&%20Tiakola%20-%20Cartier.mp3",
-            "difficulty": "Novice",
-            "answers": ["gazo cartier", "cartier", "gazo","tiakola","tiako","la melo","bsb"]
-        },
-        {
-            "title": "Genezio ft. La Mano 1.9 - EL GEMANO",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Genezio%20ft.%20La%20Mano%201.9%20-%20EL%20GEMANO.mp3",
-            "difficulty": "Novice",
-            "answers": ["genezio el gemano", "el gemano", "genezio","la mano"]
-        },
-        {
-            "title": "Genezio ft. Tiakola - La melo est dans le bounce",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Genezio%20ft.%20Tiakola%20-%20La%20melo%20est%20dans%20le%20bounce.mp3",
-            "difficulty": "Novice",
-            "answers": ["genezio la melo est dans le bounce", "la melo est dans le bounce", "genezio", "tiakola","la melo","tiako"]
-        },
-        {
-            "title": "Gims ft. Dystinct - SPIDER",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Gims%20ft.%20Dystinct%20-%20SPIDER.mp3",
-            "difficulty": "Novice",
-            "answers": ["gims spider", "spider", "gims","dystinct"]
-        },
-        {
-            "title": "Guy2Bezbar - Monaco",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Guy2Bezbar%20-%20Monaco.mp3",
-            "difficulty": "Novice",
-            "answers": ["guy2bezbar monaco", "monaco", "guy2bezbar"]
-        },
-        {
-            "title": "Heuss Lenfoire ft. Werenoi - Melanine",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Heuss%20Lenfoire%20ft.%20Werenoi%20-%20Melanine.mp3",
-            "difficulty": "Novice",
-            "answers": ["heuss melanine", "melanine", "heuss", "werenoi","lenfoire"]
-        },
-        {
-            "title": "Kalash Criminel - 10 12 14 bureau",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Kalash%20Criminel%20-%2010%2012%2014%20bureau.mp3",
-            "difficulty": "Novice",
-            "answers": ["kalash criminel 10 12 14 bureau", "10 12 14 bureau", "kalash criminel","crimi"]
-        },
-        {
-            "title": "La Mano 1.9 ft. Niska - Canon",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/La%20Mano%201.9%20ft.%20Niska%20-%20Canon.mp3",
-            "difficulty": "Novice",
-            "answers": ["la mano canon", "canon", "la mano","niska"]
-        },
-        {
-            "title": "Ninho - 25G",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Ninho%20-%2025G.mp3",
-            "difficulty": "Novice",
-            "answers": ["ninho 25g", "25g", "ninho","NI"]
-        },
-        {
-            "title": "Ninho ft. Niska - Coco",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Ninho%20ft.%20Niska%20-%20Coco.mp3",
-            "difficulty": "Novice",
-            "answers": ["ninho coco", "coco", "ninho","niska","NI"]
-        },
-        {
-            "title": "Niska & Ninho ft. Koba LaD - 911",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Niska%20&%20Ninho%20ft.%20Koba%20LaD%20-%20911.mp3",
-            "difficulty": "Novice",
-            "answers": ["niska ninho 911", "911", "niska","ninho","koba","lad","NI"]
-        },
-        {
-            "title": "Squadra ft. Landy - En bas de chez moi",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Squadra%20ft.%20Landy%20-%20En%20bas%20de%20chez%20moi.mp3",
-            "difficulty": "Novice",
-            "answers": ["squadra en bas de chez moi", "en bas de chez moi", "squadra","landy"]
-        },
-        {
-            "title": "Timal ft. Gazo - Filtré",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Timal%20ft.%20Gazo%20-%20Filtré.mp3",
-            "difficulty": "Novice",
-            "answers": ["timal filtré", "filtré", "timal","gazo"]
-        },
-        {
-            "title": "Werenoi - Laboratoire",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Werenoi%20-%20Laboratoire.mp3",
-            "difficulty": "Novice",
-            "answers": ["werenoi laboratoire", "laboratoire", "werenoi"]
-        },
-        {
-            "title": "Werenoi ft. Damso - Pyramide",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Werenoi%20ft.%20Damso%20-%20Pyramide.mp3",
-            "difficulty": "Novice",
-            "answers": ["werenoi pyramide", "pyramide", "werenoi","damso"]
-        },
-        {
-            "title": "Werenoi ft. SDM - Dans un verre",
-            "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Werenoi%20ft.%20SDM%20-%20Dans%20un%20verre.mp3",
-            "difficulty": "Novice",
-            "answers": ["werenoi dans un verre", "dans un verre", "werenoi","sdm"]
-        }
-    ]
+    def load_songs_fr(self):
+        # Données des chansons avec chemins et réponses possibles
+        return [
+            {
+                "title": "Booba - Dolce Camara",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Booba%20-%20Dolce%20Camara.mp3",
+                "difficulty": "Novice",
+                "answers": ["booba dolce camara", "dolce camara", "booba","b2o"]
+            },
+            {
+                "title": "Booba - Freestyle CKO",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Booba%20-%20Freestyle%20CKO.mp3",
+                "difficulty": "Novice",
+                "answers": ["booba freestyle cko", "freestyle cko", "booba","b2o"]
+            },
+            {
+                "title": "Booba ft. Kaaris - Kalash",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Booba%20ft.%20Kaaris%20-%20Kalash.mp3",
+                "difficulty": "Novice",
+                "answers": ["booba kalash", "kalash", "booba","kaaris","k2a","b2o"]
+            },
+            {
+                "title": "Gazo - Probation",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Gazo%20-%20Probation.mp3",
+                "difficulty": "Novice",
+                "answers": ["gazo probation", "probation", "gazo","bsb"]
+            },
+            {
+                "title": "Gazo & Tiakola - Cartier",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Gazo%20&%20Tiakola%20-%20Cartier.mp3",
+                "difficulty": "Novice",
+                "answers": ["gazo cartier", "cartier", "gazo","tiakola","tiako","la melo","bsb"]
+            },
+            {
+                "title": "Genezio ft. La Mano 1.9 - EL GEMANO",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Genezio%20ft.%20La%20Mano%201.9%20-%20EL%20GEMANO.mp3",
+                "difficulty": "Novice",
+                "answers": ["genezio el gemano", "el gemano", "genezio","la mano"]
+            },
+            {
+                "title": "Genezio ft. Tiakola - La melo est dans le bounce",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Genezio%20ft.%20Tiakola%20-%20La%20melo%20est%20dans%20le%20bounce.mp3",
+                "difficulty": "Novice",
+                "answers": ["genezio la melo est dans le bounce", "la melo est dans le bounce", "genezio", "tiakola","la melo","tiako"]
+            },
+            {
+                "title": "Gims ft. Dystinct - SPIDER",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Gims%20ft.%20Dystinct%20-%20SPIDER.mp3",
+                "difficulty": "Novice",
+                "answers": ["gims spider", "spider", "gims","dystinct"]
+            },
+            {
+                "title": "Guy2Bezbar - Monaco",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Guy2Bezbar%20-%20Monaco.mp3",
+                "difficulty": "Novice",
+                "answers": ["guy2bezbar monaco", "monaco", "guy2bezbar"]
+            },
+            {
+                "title": "Heuss Lenfoire ft. Werenoi - Melanine",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Heuss%20Lenfoire%20ft.%20Werenoi%20-%20Melanine.mp3",
+                "difficulty": "Novice",
+                "answers": ["heuss melanine", "melanine", "heuss", "werenoi","lenfoire"]
+            },
+            {
+                "title": "Kalash Criminel - 10 12 14 bureau",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Kalash%20Criminel%20-%2010%2012%2014%20bureau.mp3",
+                "difficulty": "Novice",
+                "answers": ["kalash criminel 10 12 14 bureau", "10 12 14 bureau", "kalash criminel","crimi"]
+            },
+            {
+                "title": "La Mano 1.9 ft. Niska - Canon",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/La%20Mano%201.9%20ft.%20Niska%20-%20Canon.mp3",
+                "difficulty": "Novice",
+                "answers": ["la mano canon", "canon", "la mano","niska"]
+            },
+            {
+                "title": "Ninho - 25G",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Ninho%20-%2025G.mp3",
+                "difficulty": "Novice",
+                "answers": ["ninho 25g", "25g", "ninho","NI"]
+            },
+            {
+                "title": "Ninho ft. Niska - Coco",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Ninho%20ft.%20Niska%20-%20Coco.mp3",
+                "difficulty": "Novice",
+                "answers": ["ninho coco", "coco", "ninho","niska","NI"]
+            },
+            {
+                "title": "Niska & Ninho ft. Koba LaD - 911",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Niska%20&%20Ninho%20ft.%20Koba%20LaD%20-%20911.mp3",
+                "difficulty": "Novice",
+                "answers": ["niska ninho 911", "911", "niska","ninho","koba","lad","NI"]
+            },
+            {
+                "title": "Squadra ft. Landy - En bas de chez moi",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Squadra%20ft.%20Landy%20-%20En%20bas%20de%20chez%20moi.mp3",
+                "difficulty": "Novice",
+                "answers": ["squadra en bas de chez moi", "en bas de chez moi", "squadra","landy"]
+            },
+            {
+                "title": "Timal ft. Gazo - Filtré",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Timal%20ft.%20Gazo%20-%20Filtré.mp3",
+                "difficulty": "Novice",
+                "answers": ["timal filtré", "filtré", "timal","gazo"]
+            },
+            {
+                "title": "Werenoi - Laboratoire",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Werenoi%20-%20Laboratoire.mp3",
+                "difficulty": "Novice",
+                "answers": ["werenoi laboratoire", "laboratoire", "werenoi"]
+            },
+            {
+                "title": "Werenoi ft. Damso - Pyramide",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Werenoi%20ft.%20Damso%20-%20Pyramide.mp3",
+                "difficulty": "Novice",
+                "answers": ["werenoi pyramide", "pyramide", "werenoi","damso"]
+            },
+            {
+                "title": "Werenoi ft. SDM - Dans un verre",
+                "file": "https://github.com/Zzeraku938/SAE302_BlindTest/tree/master/RAP_FR/Novice/Werenoi%20ft.%20SDM%20-%20Dans%20un%20verre.mp3",
+                "difficulty": "Novice",
+                "answers": ["werenoi dans un verre", "dans un verre", "werenoi","sdm"]
+            }
+        ]
 
 
     def show_genre_selection(self):
