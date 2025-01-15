@@ -91,3 +91,52 @@ class LoginWindow(ctk.CTkFrame):
             print("Connexion réussie")
         else:
             print("Identifiants / Mot de passe incorrects")
+
+class RegisterWindow(ctk.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
+        self.pack(fill=ctk.BOTH, expand=True)
+
+        self.label = ctk.CTkLabel(self, text="Inscription au Blindtest Musical", font=("Arial", 20))
+        self.label.pack(pady=20)
+
+        self.firstname_entry = ctk.CTkEntry(self, placeholder_text="Prénom")
+        self.firstname_entry.pack(pady=10)
+
+        self.lastname_entry = ctk.CTkEntry(self, placeholder_text="Nom")
+        self.lastname_entry.pack(pady=10)
+
+        self.username_entry = ctk.CTkEntry(self, placeholder_text="Nom d'utilisateur")
+        self.username_entry.pack(pady=10)
+
+        self.email_entry = ctk.CTkEntry(self, placeholder_text="Adresse Mail")
+        self.email_entry.pack(pady=10)
+
+        self.password_entry = ctk.CTkEntry(self, placeholder_text="Mot de passe", show="*")
+        self.password_entry.pack(pady=10)
+
+        self.confirm_password_entry = ctk.CTkEntry(self, placeholder_text="Confirmer Mot de passe", show="*")
+        self.confirm_password_entry.pack(pady=10)
+
+        self.register_button = ctk.CTkButton(self, text="S'inscrire", command=self.register)
+        self.register_button.pack(pady=20)
+
+        self.login_link = ctk.CTkButton(self, text="Déjà inscrit ? Se connecter", command=self.master.show_login)
+        self.login_link.pack(pady=10)
+
+    def register(self):
+        firstname = self.firstname_entry.get()
+        lastname = self.lastname_entry.get()
+        username = self.username_entry.get()
+        email = self.email_entry.get()
+        password = self.password_entry.get()
+        confirm_password = self.confirm_password_entry.get()
+
+        if password != confirm_password:
+            print("Les mots de passe ne correspondent pas")
+        else:
+            if inscrire_utilisateur(lastname, firstname, username, email, password):
+                print("Inscription réussie")
+                self.master.show_login()
+            else:
+                print("Erreur lors de l'inscription")
