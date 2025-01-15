@@ -252,7 +252,7 @@ class BlindtestGame:
             messagebox.showerror("Erreur", "Veuillez entrer un nom")
             return
         self.show_genre_selection()
-
+    
 def load_songs_fr(self):
     # Données des chansons avec chemins et réponses possibles
     return [
