@@ -1,5 +1,3 @@
-import os
-import requests
 import customtkinter as ctk
 import tkinter as tk
 from tkinter import messagebox
@@ -184,14 +182,14 @@ class BlindtestGame:
         self.master.geometry("800x600")
         self.master.configure(bg="#1A1A1A")
         
-        # Ajouter cette ligne pour récupérer le nom d'utilisateur
+        # Récupérer le nom d'utilisateur
         self.player_name = master.username if hasattr(master, 'username') else "Joueur"
 
-         # Initialize database connection
+         # Connection DB
         self.conn = sqlite3.connect('blindtest_scores.db')
         self.cursor = self.conn.cursor()
         
-        # Create tables if they don't exist
+        # Création de tables
         self.cursor.execute('''
         CREATE TABLE IF NOT EXISTS leaderboard (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -221,7 +219,7 @@ class BlindtestGame:
         )''')
         self.conn.commit()
        
-        # Initialize pygame mixer
+        # Initialisation pygame mixer
         pygame.mixer.init()
 
         # Chansons avec plusieurs réponses possibles
@@ -254,137 +252,221 @@ class BlindtestGame:
             messagebox.showerror("Erreur", "Veuillez entrer un nom")
             return
         self.show_genre_selection()
-    
+
     def load_songs_fr(self):
-     # Données des chansons avec les liens GitHub vers les fichiers audio
-     return [
-         {
-             "title": "Booba - Dolce Camara",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Booba%20-%20Dolce%20Camara.mp3",
-             "difficulty": "Novice",
-             "answers": ["booba dolce camara", "dolce camara", "booba", "b2o"]
-         },
-         {
-             "title": "Booba - Freestyle CKO",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Booba%20-%20Freestyle%20CKO.mp3",
-             "difficulty": "Novice",
-             "answers": ["booba freestyle cko", "freestyle cko", "booba", "b2o"]
-         },
-         {
-             "title": "Booba ft. Kaaris - Kalash",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Booba%20ft.%20Kaaris%20-%20Kalash.mp3",
-             "difficulty": "Novice",
-             "answers": ["booba kalash", "kalash", "booba", "kaaris", "k2a", "b2o"]
-         },
-         {
-             "title": "Gazo - Probation",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Gazo%20-%20Probation.mp3",
-             "difficulty": "Novice",
-             "answers": ["gazo probation", "probation", "gazo", "bsb"]
-         },
-         {
-             "title": "Gazo & Tiakola - Cartier",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Gazo%20&%20Tiakola%20-%20Cartier.mp3",
-             "difficulty": "Novice",
-             "answers": ["gazo cartier", "cartier", "gazo", "tiakola", "tiako", "la melo", "bsb"]
-         },
-         {
-             "title": "Genezio ft. La Mano 1.9 - EL GEMANO",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Genezio%20ft.%20La%20Mano%201.9%20-%20EL%20GEMANO.mp3",
-             "difficulty": "Novice",
-             "answers": ["genezio el gemano", "el gemano", "genezio", "la mano"]
-         },
-         {
-             "title": "Genezio ft. Tiakola - La melo est dans le bounce",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Genezio%20ft.%20Tiakola%20-%20La%20melo%20est%20dans%20le%20bounce.mp3",
-             "difficulty": "Novice",
-             "answers": ["genezio la melo est dans le bounce", "la melo est dans le bounce", "genezio", "tiakola", "la melo", "tiako"]
-         },
-         {
-             "title": "Gims ft. Dystinct - SPIDER",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Gims%20ft.%20Dystinct%20-%20SPIDER.mp3",
-             "difficulty": "Novice",
-             "answers": ["gims spider", "spider", "gims", "dystinct"]
-         },
-         {
-             "title": "Guy2Bezbar - Monaco",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Guy2Bezbar%20-%20Monaco.mp3",
-             "difficulty": "Novice",
-             "answers": ["guy2bezbar monaco", "monaco", "guy2bezbar"]
-         },
-         {
-             "title": "Heuss Lenfoire ft. Werenoi - Melanine",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Heuss%20Lenfoire%20ft.%20Werenoi%20-%20Melanine.mp3",
-             "difficulty": "Novice",
-             "answers": ["heuss melanine", "melanine", "heuss", "werenoi", "lenfoire"]
-         },
-         {
-             "title": "Kalash Criminel - 10 12 14 bureau",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Kalash%20Criminel%20-%2010%2012%2014%20bureau.mp3",
-             "difficulty": "Novice",
-             "answers": ["kalash criminel 10 12 14 bureau", "10 12 14 bureau", "kalash criminel", "crimi"]
-         },
-         {
-             "title": "La Mano 1.9 ft. Niska - Canon",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/La%20Mano%201.9%20ft.%20Niska%20-%20Canon.mp3",
-             "difficulty": "Novice",
-             "answers": ["la mano canon", "canon", "la mano", "niska"]
-         },
-         {
-             "title": "Ninho - 25G",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Ninho%20-%2025G.mp3",
-             "difficulty": "Novice",
-             "answers": ["ninho 25g", "25g", "ninho", "NI"]
-         },
-         {
-             "title": "Ninho ft. Niska - Coco",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Ninho%20ft.%20Niska%20-%20Coco.mp3",
-             "difficulty": "Novice",
-             "answers": ["ninho coco", "coco", "ninho", "niska", "NI"]
-         },
-         {
-             "title": "Niska & Ninho ft. Koba LaD - 911",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Niska%20&%20Ninho%20ft.%20Koba%20LaD%20-%20911.mp3",
-             "difficulty": "Novice",
-             "answers": ["niska ninho 911", "911", "niska", "ninho", "koba", "lad", "NI"]
-         },
-         {
-             "title": "Squadra ft. Landy - En bas de chez moi",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Squadra%20ft.%20Landy%20-%20En%20bas%20de%20chez%20moi.mp3",
-             "difficulty": "Novice",
-             "answers": ["squadra en bas de chez moi", "en bas de chez moi", "squadra", "landy"]
-         },
-         {
-             "title": "Timal ft. Gazo - Filtré",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Timal%20ft.%20Gazo%20-%20Filtré.mp3",
-             "difficulty": "Novice",
-             "answers": ["timal filtré", "filtré", "timal", "gazo"]
-         },
-         {
-             "title": "Werenoi - Laboratoire",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Werenoi%20-%20Laboratoire.mp3",
-             "difficulty": "Novice",
-             "answers": ["werenoi laboratoire", "laboratoire", "werenoi"]
-         },
-         {
-             "title": "Werenoi ft. Damso - Pyramide",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Werenoi%20ft.%20Damso%20-%20Pyramide.mp3",
-             "difficulty": "Novice",
-             "answers": ["werenoi pyramide", "pyramide", "werenoi", "damso"]
-         },
-         {
-             "title": "Werenoi ft. SDM - Dans un verre",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Novice/Werenoi%20ft.%20SDM%20-%20Dans%20un%20verre.mp3",
-             "difficulty": "Novice",
-             "answers": ["werenoi dans un verre", "dans un verre", "werenoi", "sdm"]
-         },
-         {
-             "title": "Gazo - Nanani nanana",
-             "file": "https://github.com/Zzeraku938/SAE302_BlindTest/raw/refs/heads/master/RAP_FR/Intermediaire/Gazo%20-%20Nanani%20nana.mp3",
-             "difficulty": "Intermédiaire",
-             "answers": ["gazo nanani nanana", "nanani nanana", "gazo"]
-         }
-     ]
+        # Données des chansons avec chemins et réponses possibles
+        return [
+            {
+                "title": "Booba - Dolce Camara",
+                "file": "./RAP_FR/Novice/Booba - Dolce Camara.mp3",
+                "difficulty": "Novice",
+                "answers": ["booba dolce camara", "dolce camara", "booba","b2o"]
+            },
+            {
+                "title": "Booba - Freestyle CKO",
+                "file": "./RAP_FR/Novice/Booba - Freestyle CKO.mp3",
+                "difficulty": "Novice",
+                "answers": ["booba freestyle cko", "freestyle cko", "booba","b2o"]
+            },
+            {
+                "title": "Booba ft. Kaaris - Kalash",
+                "file": "./RAP_FR/Novice/Booba ft. Kaaris - Kalash.mp3",
+                "difficulty": "Novice",
+                "answers": ["booba kalash", "kalash", "booba","kaaris","k2a","b2o"]
+            },
+            {
+                "title": "Gazo - Probation",
+                "file": "./RAP_FR/Novice/Gazo - Probation.mp3",
+                "difficulty": "Novice",
+                "answers": ["gazo probation", "probation", "gazo","bsb"]
+            },
+            {
+                "title": "Gazo & Tiakola - Cartier",
+                "file": "./RAP_FR/Novice/Gazo & Tiakola - Cartier.mp3",
+                "difficulty": "Novice",
+                "answers": ["gazo cartier", "cartier", "gazo","tiakola","tiako","la melo","bsb"]
+            },
+            {
+                "title": "Genezio ft. La Mano 1.9 - EL GEMANO",
+                "file": "./RAP_FR/Novice/Genezio ft. La Mano 1.9 - EL GEMANO.mp3",
+                "difficulty": "Novice",
+                "answers": ["genezio el gemano", "el gemano", "genezio","la mano"]
+            },
+            {
+                "title": "Genezio ft. Tiakola - La melo est dans le bounce",
+                "file": "./RAP_FR/Novice/Genezio ft. Tiakola - La melo est dans le bounce.mp3",
+                "difficulty": "Novice",
+                "answers": ["genezio la melo est dans le bounce", "la melo est dans le bounce", "genezio", "tiakola","la melo","tiako"]
+            },
+            {
+                "title": "Gims ft. Dystinct - SPIDER",
+                "file": "./RAP_FR/Novice/Gims ft. Dystinct - SPIDER.mp3",
+                "difficulty": "Novice",
+                "answers": ["gims spider", "spider", "gims","dystinct"]
+            },
+            {
+                "title": "Guy2Bezbar - Monaco",
+                "file": "./RAP_FR/Novice/Guy2Bezbar - Monaco.mp3",
+                "difficulty": "Novice",
+                "answers": ["guy2bezbar monaco", "monaco", "guy2bezbar"]
+            },
+            {
+                "title": "Heuss Lenfoire ft. Werenoi - Melanine",
+                "file": "./RAP_FR/Novice/Heuss Lenfoire ft. Werenoi - Melanine.mp3",
+                "difficulty": "Novice",
+                "answers": ["heuss melanine", "melanine", "heuss", "werenoi","lenfoire"]
+            },
+            {
+                "title": "Kalash Criminel - 10 12 14 bureau",
+                "file": "./RAP_FR/Novice/Kalash Criminel - 10 12 14 bureau.mp3",
+                "difficulty": "Novice",
+                "answers": ["kalash criminel 10 12 14 bureau", "10 12 14 bureau", "kalash criminel","crimi"]
+            },
+            {
+                "title": "La Mano 1.9 ft. Niska - Canon",
+                "file": "./RAP_FR/Novice/La Mano 1.9 ft. Niska - Canon.mp3",
+                "difficulty": "Novice",
+                "answers": ["la mano canon", "canon", "la mano","niska"]
+            },
+            {
+                "title": "Ninho - 25G",
+                "file": "./RAP_FR/Novice/Ninho - 25G.mp3",
+                "difficulty": "Novice",
+                "answers": ["ninho 25g", "25g", "ninho","NI"]
+            },
+            {
+                "title": "Ninho ft. Niska - Coco",
+                "file": "./RAP_FR/Novice/Ninho ft. Niska - Coco.mp3",
+                "difficulty": "Novice",
+                "answers": ["ninho coco", "coco", "ninho","niska","NI"]
+            },
+            {
+                "title": "Niska & Ninho ft. Koba LaD - 911",
+                "file": "./RAP_FR/Novice/Niska & Ninho ft. Koba LaD - 911.mp3",
+                "difficulty": "Novice",
+                "answers": ["niska ninho 911", "911", "niska","ninho","koba","lad","NI"]
+            },
+            {
+                "title": "Squadra ft. Landy - En bas de chez moi",
+                "file": "./RAP_FR/Novice/Squadra ft. Landy - En bas de chez moi.mp3",
+                "difficulty": "Novice",
+                "answers": ["squadra en bas de chez moi", "en bas de chez moi", "squadra","landy"]
+            },
+            {
+                "title": "Timal ft. Gazo - Filtré",
+                "file": "./RAP_FR/Novice/Timal ft. Gazo - Filtré.mp3",
+                "difficulty": "Novice",
+                "answers": ["timal filtré", "filtré", "timal","gazo"]
+            },
+            {
+                "title": "Werenoi - Laboratoire",
+                "file": "./RAP_FR/Novice/Werenoi - Laboratoire.mp3",
+                "difficulty": "Novice",
+                "answers": ["werenoi laboratoire", "laboratoire", "werenoi"]
+            },
+            {
+                "title": "Werenoi ft. Damso - Pyramide",
+                "file": "./RAP_FR/Novice/Werenoi ft. Damso - Pyramide.mp3",
+                "difficulty": "Novice",
+                "answers": ["werenoi pyramide", "pyramide", "werenoi","damso"]
+            },
+            {
+                "title": "Werenoi ft. SDM - Dans un verre",
+                "file": "./RAP_FR/Novice/Werenoi ft. SDM - Dans un verre.mp3",
+                "difficulty": "Novice",
+                "answers": ["werenoi dans un verre", "dans un verre", "werenoi","sdm"]
+            },
+            {
+                "title": "Gazo - Nanani nanana",
+                "file": "./RAP_FR/Intermediaire/Gazo - Nanani nanana.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["gazo nanani nanana", "nanani nanana", "gazo"]
+            },
+            {
+                "title": "Genezio ft. Landy - Enfant du ghetto",
+                "file": "./RAP_FR/Intermediaire/Genezio ft. Landy - Enfant du ghetto.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["genezio enfant du ghetto", "enfant du ghetto", "genezio","landy"]
+            },
+            {
+                "title": "Guy2Bezbar - Mon année",
+                "file": "./RAP_FR/Intermediaire/Guy2Bezbar - Mon année.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["guy2bezbar mon année", "mon année", "guy2bezbar"]
+            },
+            {
+                "title": "Ninho ft. Werenoi - 3 Singes",
+                "file": "./RAP_FR/Intermediaire/Ninho ft. Werenoi - 3 Singes.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["ninho 3 singes", "3 singes", "ninho werenoi","ninho","werenoi"]
+            },
+            {
+                "title": "Skima - Krieg Part.1 (TMAX)",
+                "file": "./RAP_FR/Intermediaire/Skima - Krieg Part.1 (TMAX).mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["krieg", "krieg part 1", "skima","tmax"]
+            },
+            {
+                "title": "Soolking ft. Gims - Carré Ok",
+                "file": "./RAP_FR/Intermediaire/Soolking ft. Gims - Carré Ok.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["soolking carré ok", "carré ok", "soolking gims","gims","soolking"]
+            },
+            {
+                "title": "Suprême NTM - Seine Saint-Denis Style",
+                "file": "./RAP_FR/Intermediaire/Suprême NTM - Seine Saint-Denis Style.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["ntm seine saint denis style", "seine saint denis style", "supreme ntm","ntm","supreme"]
+            },
+            {
+                "title": "Suprême NTM ft. Lord Kossity - Ma Benz",
+                "file": "./RAP_FR/Intermediaire/Suprême NTM ft. Lord Kossity - Ma Benz.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["ntm ma benz", "ma benz", "supreme ntm","benz","ntm","supreme"]
+            },
+            {
+                "title": "Werenoi - 3x filtré",
+                "file": "./RAP_FR/Intermediaire/Werenoi - 3x filtré.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["werenoi 3x filtré", "3x filtré", "werenoi","3f"]
+            },
+            {
+                "title": "Werenoi - Balmain",
+                "file": "./RAP_FR/Intermediaire/Werenoi - Balmain.mp3",
+                "difficulty": "Intermédiaire",
+                "answers": ["werenoi balmain", "balmain", "werenoi"]
+            },
+            {
+                "title": "4keus - Moussa",
+                "file": "./RAP_FR/Extreme/4keus - Moussa.mp3",
+                "difficulty": "Extrême",
+                "answers": ["4keus moussa", "moussa", "4keus"]
+            },
+            {
+                "title": "Gradur - Terraser",
+                "file": "./RAP_FR/Extreme/Gradur - Terraser.mp3",
+                "difficulty": "Extrême",
+                "answers": ["gradur terraser", "terraser", "gradur"]
+            },
+            {
+                "title": "Kaaris - Zoo",
+                "file": "./RAP_FR/Extreme/Kaaris - Zoo.mp3",
+                "difficulty": "Extrême",
+                "answers": ["kaaris zoo", "zoo", "kaaris","k2a"]
+            },
+            {
+                "title": "Ninho - Binks To Binks 2",
+                "file": "./RAP_FR/Extreme/Ninho - Binks To Binks 2.mp3",
+                "difficulty": "Extrême",
+                "answers": ["ninho binks to binks 2", "binks to binks 2", "ninho","ni"]
+            },
+            {
+                "title": "SCH - Champs Élysées",
+                "file": "./RAP_FR/Extreme/SCH - Champs Élysées.mp3",
+                "difficulty": "Extrême",
+                "answers": ["sch champs élysées", "champs élysées", "sch"]
+            },
+        ]
 
 
     def show_genre_selection(self):
