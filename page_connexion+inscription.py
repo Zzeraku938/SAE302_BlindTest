@@ -1,6 +1,6 @@
+import customtkinter as ctk
 import sqlite3
 import hashlib
-import customtkinter as ctk
 
 # Initialisation de la base de données
 conn = sqlite3.connect('blindtest_users.db')
@@ -36,11 +36,10 @@ def inscrire_utilisateur(nom, prenom, nom_utilisateur, email, mot_de_passe):
 def connecter_utilisateur(nom_utilisateur, mot_de_passe):
     hashed_password = hash_password(mot_de_passe)
     cursor.execute('''
-    SELECT * FROM utilisateurs WHERE nom_utilisateur = ? AND mot_de passe = ?
+    SELECT * FROM utilisateurs WHERE nom_utilisateur = ? AND mot_de_passe = ?
     ''', (nom_utilisateur, hashed_password))
     utilisateur = cursor.fetchone()
     return utilisateur is not None
-
 
 class MainApplication(ctk.CTk):
     def __init__(self):
@@ -140,3 +139,10 @@ class RegisterWindow(ctk.CTkFrame):
                 self.master.show_login()
             else:
                 print("Erreur lors de l'inscription")
+
+if __name__ == "__main__":
+    app = MainApplication()
+    app.mainloop()
+
+# fermer la connexion à la base de données
+conn.close()
