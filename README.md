@@ -20,6 +20,7 @@ Application de blindtest musical spécialisée dans le rap français, permettant
 
 [python]
 
+pip install --upgrade pip
 pip install tkinter
 pip install pygame
 pip install customtkinter
