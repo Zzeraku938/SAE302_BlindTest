@@ -63,3 +63,31 @@ class MainApplication(ctk.CTk):
         if self.current_window:
             self.current_window.destroy()
         self.current_window = RegisterWindow(self)
+
+class LoginWindow(ctk.CTkFrame):
+    def __init__(self, master):
+        super().__init__(master)
+        self.pack(fill=ctk.BOTH, expand=True)
+
+        self.label = ctk.CTkLabel(self, text="Connexion au Blindtest Musical", font=("Arial", 20))
+        self.label.pack(pady=20)
+
+        self.username_entry = ctk.CTkEntry(self, placeholder_text="Nom d'utilisateur")
+        self.username_entry.pack(pady=10)
+
+        self.password_entry = ctk.CTkEntry(self, placeholder_text="Mot de passe", show="*")
+        self.password_entry.pack(pady=10)
+
+        self.login_button = ctk.CTkButton(self, text="Se connecter", command=self.login)
+        self.login_button.pack(pady=10)
+
+        self.register_button = ctk.CTkButton(self, text="S'inscrire", command=self.master.show_register)
+        self.register_button.pack(pady=10)
+
+    def login(self):
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+        if connecter_utilisateur(username, password):
+            print("Connexion réussie")
+        else:
+            print("Identifiants / Mot de passe incorrects")
