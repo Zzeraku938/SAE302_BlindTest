@@ -1,5 +1,6 @@
 import sqlite3
 import hashlib
+import customtkinter as ctk
 
 # Initialisation de la base de données
 conn = sqlite3.connect('blindtest_users.db')
@@ -39,3 +40,26 @@ def connecter_utilisateur(nom_utilisateur, mot_de_passe):
     ''', (nom_utilisateur, hashed_password))
     utilisateur = cursor.fetchone()
     return utilisateur is not None
+
+
+class MainApplication(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.title("Blindtest Musical")
+        self.geometry("500x550")
+        
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("blue")
+        
+        self.current_window = None
+        self.show_login()
+    
+    def show_login(self):
+        if self.current_window:
+            self.current_window.destroy()
+        self.current_window = LoginWindow(self)
+    
+    def show_register(self):
+        if self.current_window:
+            self.current_window.destroy()
+        self.current_window = RegisterWindow(self)
